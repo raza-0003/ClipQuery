@@ -1,3 +1,7 @@
+import os
+import tempfile
+from pathlib import Path
+
 import streamlit as st
 import time
 from dotenv import load_dotenv
@@ -99,6 +103,549 @@ h1, h2, h3, h4, h5, h6 {
     letter-spacing: 0.2em;
     text-transform: uppercase;
     margin-top: 0.5rem;
+}
+
+.hero-panel {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.4fr) minmax(240px, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+    margin-bottom: 1.5rem;
+}
+
+.hero-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 1.5rem;
+}
+
+.hero-card h2 {
+    margin: 0;
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 1.05;
+}
+
+.hero-card p {
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0.3rem 0.4rem 0 0;
+    padding: 0.55rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.hero-layout {
+    display: grid;
+    grid-template-columns: minmax(500px, 2.3fr) minmax(320px, 1fr);
+    gap: 1.75rem;
+    align-items: start;
+    margin-bottom: 2rem;
+}
+
+.sidebar-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+.sidebar-brand-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.recent-analyses {
+    margin-top: 2rem;
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.recent-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 1rem;
+    min-height: 110px;
+}
+
+.recent-card.add-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.hero-top {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+}
+
+.hero-highlight {
+    color: var(--accent);
+}
+
+.chat-box {
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    min-height: 240px;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.suggested-question {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 0.95rem 1rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.suggested-question:hover {
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-1px);
+}
+
+.workflow-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 1.15rem;
+    min-height: 110px;
+}
+
+.workflow-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.workflow-card .card-title {
+    margin-bottom: 0.75rem;
+}
+
+.workflow-card .card-content {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.hero-copy {
+    padding: 2rem 2rem 2.25rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 28px;
+    position: relative;
+}
+
+.hero-copy h1 {
+    margin: 0 0 0.8rem;
+    font-size: clamp(3rem, 4vw, 4.4rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.hero-copy p {
+    max-width: 640px;
+    margin: 0 0 1.75rem;
+    color: var(--text-muted);
+    line-height: 1.9;
+    font-size: 1rem;
+}
+
+.hero-actions {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-panel {
+    background: rgba(255,255,255,0.035);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 1.4rem;
+}
+
+.input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+}
+
+.input-secondary {
+    flex: 1 1 340px;
+}
+
+.input-button {
+    background: linear-gradient(135deg, var(--accent), #5b21b6);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.4rem;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+}
+
+.input-button:hover {
+    opacity: 0.95;
+}
+
+.button-row {
+    display: flex;
+    gap: 0.85rem;
+    flex-wrap: wrap;
+    margin-top: 0.7rem;
+}
+
+.small-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    padding: 1rem 0 0;
+}
+
+.sidebar-nav a {
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 0.9rem 1rem;
+    border-radius: 12px;
+    display: block;
+    transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-nav a:hover,
+.sidebar-nav a.active {
+    background: rgba(124,58,237,0.14);
+    color: white;
+}
+
+.chat-panel {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 1.5rem;
+    min-height: 520px;
+}
+
+.chat-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.35rem;
+}
+
+.chat-panel-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+}
+
+.suggested-questions {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1.25rem;
+}
+
+.suggested-question {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 0.95rem 1rem;
+    color: var(--text-muted);
+    cursor: pointer;
+}
+
+.workflow-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1.75rem;
+}
+
+.workflow-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 1.15rem;
+    min-height: 110px;
+}
+
+.workflow-card .card-title {
+    margin-bottom: 0.75rem;
+}
+
+.workflow-card .card-content {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.input-label {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.45rem;
+}
+
+.stSidebar {
+    color: var(--text) !important;
+}
+
+[data-testid="stSidebar"] {
+    background: rgba(15, 15, 22, 0.98) !important;
+}
+
+[data-testid="stSidebar"] .css-1d391kg {
+    border: none !important;
+}
+
+/* ── Cards ── */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s;
+}
+
+.card:hover {
+    border-color: var(--accent);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--accent), var(--accent-2));
+}
+
+.card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-content {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--text);
+}
+
+/* ── Extra dashboard classes ── */
+.sidebar-header {
+    padding-bottom: 0.75rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.sidebar-brand {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin-bottom: 0.15rem;
+}
+
+.sidebar-brand-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.recent-analyses {
+    margin-top: 2rem;
+}
+
+.recent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.recent-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 22px;
+    padding: 1rem;
+    min-height: 110px;
+}
+
+.recent-card.add-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.hero-top {
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.85rem;
+}
+
+.hero-highlight {
+    color: var(--accent);
+}
+
+.chat-box {
+    padding: 1rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    min-height: 240px;
+    color: var(--text-muted);
+    line-height: 1.8;
+}
+
+.suggested-question {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    padding: 0.95rem 1rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.suggested-question:hover {
+    background: rgba(255,255,255,0.06);
+    transform: translateY(-1px);
+}
+
+.workflow-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.workflow-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 20px;
+    padding: 1.15rem;
+    min-height: 110px;
+}
+
+.workflow-card .card-title {
+    margin-bottom: 0.75rem;
+}
+
+.workflow-card .card-content {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+/* ── Input & Buttons ── */
+.stTextInput > div > div > input,
+.stSelectbox > div > div {
+    background: var(--surface-2) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    color: var(--text) !important;
+    font-family: 'JetBrains Mono', monospace !important;
+}
+
+.stTextInput > div > div > input:focus {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(124,58,237,0.2) !important;
+}
+
+.stButton > button {
+    background: linear-gradient(135deg, var(--accent), #5b21b6) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 14px !important;
+    font-family: 'Syne', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 0.08em !important;
+    padding: 0.75rem 1.5rem !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 12px 28px rgba(124,58,237,0.18) !important;
+}
+
+.stButton > button:hover,
+.stFileUploader > div > button:hover,
+.stFileUploader button:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 24px 55px rgba(124,58,237,0.32) !important;
+    background: linear-gradient(135deg, #8b5cf6, #22d3ee) !important;
+}
+
+.stButton > button:focus,
+.stFileUploader > div > button:focus,
+.stFileUploader button:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 4px rgba(124,58,237,0.22) !important;
+}
+
+/* Secondary button */
+.stButton > button[kind="secondary"] {
+    background: var(--surface-2) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.panel-compact div {
+    color: var(--text-muted);
+    line-height: 1.7;
 }
 
 /* ── Cards ── */
@@ -331,16 +878,23 @@ def render_step_bar(label: str, key: str, icon: str):
 
 # ─── Sidebar ────────────────────────────────────────────────────────────────────
 with st.sidebar:
-    st.markdown('<div class="hero-title" style="font-size:1.6rem">🎬 ClipQuery</div>', unsafe_allow_html=True)
-    st.markdown('<div class="hero-sub">Meeting Intelligence & Video Q&A</div>', unsafe_allow_html=True)
-    st.markdown("---")
+    st.markdown(
+        '<div class="sidebar-header">'
+        '  <div class="sidebar-brand">ClipQuery</div>'
+        '  <div class="sidebar-brand-sub">Meeting Intelligence & Video Q&A</div>'
+        '</div>'
+        '<hr style="border-color:rgba(255,255,255,0.08);margin:1.5rem 0;" />'
+        '<div class="input-label">INPUT</div>',
+        unsafe_allow_html=True,
+    )
 
-    st.markdown('<span class="badge badge-purple">Input</span>', unsafe_allow_html=True)
-    source = st.text_input("YouTube URL or File Path", placeholder="https://youtube.com/watch?v=... or /path/to/file.mp4")
+    source = st.text_input("", placeholder="Paste YouTube URL here or upload a file", label_visibility="collapsed")
+    uploaded_file = st.file_uploader("", type=["mp4", "mov", "mkv", "wav", "mp3", "m4a", "flac"], label_visibility="collapsed")
+    st.markdown('<div style="color:var(--text-muted);font-size:0.78rem;margin-top:0.55rem">200MB per file • MP4, MOV, MKV, WAV, MP3, M4A, FLAC</div>', unsafe_allow_html=True)
 
-    language = st.selectbox("Language", ["english", "hinglish"], index=0)
+    language = st.selectbox("", ["English (Auto)", "English", "Hinglish"], index=0, label_visibility="collapsed")
 
-    run_btn = st.button("⚡  Analyse", use_container_width=True)
+    run_btn = st.button("Analyse Video", use_container_width=True)
 
     if st.session_state.pipeline_done:
         st.markdown("---")
@@ -358,14 +912,31 @@ with st.sidebar:
         st.markdown('<div style="font-size:0.85rem;color:var(--text-muted);">Built with ❤️ by <strong>Faizan Raza</strong></div>', unsafe_allow_html=True)
 
 # ─── Main Area ──────────────────────────────────────────────────────────────────
-st.markdown('<div class="hero-title">ClipQuery</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-sub">Summarise video content and chat with meeting transcripts effortlessly</div>', unsafe_allow_html=True)
-st.markdown("---")
+st.markdown(
+    '<div class="hero-panel">'
+    '  <div class="hero-card">'
+    '    <div class="hero-title">ClipQuery</div>'
+    '    <div class="hero-sub">Turn any video into searchable knowledge with fast AI summarization and RAG-powered Q&A.</div>'
+    '    <p>Upload a video or paste a YouTube link to run the same analysis pipeline for both. The assistant extracts transcript, summary, action items, decisions, and open questions.</p>'
+    '    <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.75rem">'
+    '      <span class="feature-pill">🎥 Video upload</span>'
+    '      <span class="feature-pill">🧠 RAG Chat</span>'
+    '      <span class="feature-pill">📄 Smart Summary</span>'
+    '      <span class="feature-pill">🌐 Multi-language</span>'
+    '    </div>'
+    '  </div>'
+    '  <div class="panel-compact">'
+    '    <h3>How ClipQuery works</h3>'
+    '    <div>Use one unified pipeline for URLs and uploaded videos. Audio extraction, transcript generation, summarization, action item extraction, and intelligent Q&A all run together.</div>'
+    '  </div>'
+    '</div>',
+    unsafe_allow_html=True,
+)
 
 # ── Run Pipeline ────────────────────────────────────────────────────────────────
 if run_btn:
-    if not source.strip():
-        st.error("Please enter a YouTube URL or file path.")
+    if not source.strip() and uploaded_file is None:
+        st.error("Please enter a YouTube URL, file path, or upload a file.")
     else:
         st.session_state.pipeline_done = False
         st.session_state.result = None
@@ -376,6 +947,14 @@ if run_btn:
 
         def update_step(key, state):
             st.session_state.pipeline_steps[key] = state
+
+        uploaded_path = None
+        if uploaded_file is not None:
+            tmp_suffix = Path(uploaded_file.name).suffix or ".mp4"
+            uploaded_path = tempfile.NamedTemporaryFile(delete=False, suffix=tmp_suffix).name
+            with open(uploaded_path, "wb") as f:
+                f.write(uploaded_file.read())
+            source = uploaded_path
 
         try:
             with progress_placeholder.container():
@@ -427,6 +1006,13 @@ if run_btn:
                 if st.session_state.pipeline_steps.get(k) == "active":
                     st.session_state.pipeline_steps[k] = "pending"
             progress_placeholder.error(f"❌ Error: {e}")
+
+        finally:
+            if uploaded_path is not None and os.path.exists(uploaded_path):
+                try:
+                    os.remove(uploaded_path)
+                except OSError:
+                    pass
 
 # ── Results ──────────────────────────────────────────────────────────────────────
 if st.session_state.result:
