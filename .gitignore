@@ -1,0 +1,11 @@
+.env
+
+# Ignore generated and runtime files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+downloades/
+vector_db/
